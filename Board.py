@@ -7,59 +7,72 @@ Created on Wed Jan 22 21:44:37 2020
 
 class piece:
     
-    def __init__(self,name,value,is_white):
+    def __init__(self,name,value,is_white,position):
         self.name = name
         self.value = value
         self.is_white = is_white
+        self.position = position
     
 class player:
     
     def __init__(self,is_white):
         self.is_white = is_white
         self.piece = []
-        for i in range(0,8):
-            p = piece("pawn",1,is_white)
+        for i in range(8):
+            p = piece("P",1,is_white,i+8+40*is_white)
             self.piece.append(p)
-        for i in range(0,2):
-            p = piece("rook",5,is_white)
-            self.piece.append(p)
-        for i in range(0,2):
-            p = piece("knight",3,is_white)
-            self.piece.append(p)
-        for i in range(0,2):
-            p = piece("bishop",3,is_white)
-            self.piece.append(p)
-        p = piece("queen",9,is_white)
+        p = piece("R",5,is_white,56*is_white)
         self.piece.append(p)
-        p = piece("king",15,is_white)
+        p = piece("R",5,is_white,7+56*is_white)
+        self.piece.append(p)
+        p = piece("C",3,is_white,1+56*is_white)
+        self.piece.append(p)
+        p = piece("C",3,is_white,6+56*is_white)
+        self.piece.append(p)
+        p = piece("B",3,is_white,2+56*is_white)
+        self.piece.append(p)
+        p = piece("B",3,is_white,5+56*is_white)
+        self.piece.append(p)
+        p = piece("Q",9,is_white,3+56*is_white)
+        self.piece.append(p)
+        p = piece("K",15,is_white,4+56*is_white)
         self.piece.append(p)
         
         
         
 class game:
     
-    board = [0]*64
     
     def __init__(self):
-        for i in range(0,8):
-            letter = chr(97+i)
-            for j in range(0,8):
-                self.board[i*8+j]= letter+str(j)
-        
+        self.board = [None]*64
         self.P1 = player(True)
         self.P2 = player(False)
+        for p in self.P1.piece:
+            self.board[p.position]=p
+        for p in self.P2.piece:
+            self.board[p.position]=p
         self.turn = 0
         
 
 
 def display_board(board):
-    print(" ____ ____ ____ ____ ____ ____ ____ ____")
+    print("____ ____ ____ ____ ____ ____ ____")
     for i in range(0,8):
         for j in range(0,8):
-            print("|",board[i*8+j],end=" ")
+            if(board[i*8+j]):
+                print("|",board[i*8+j].name,end=" ")
+            else:
+                print("|",end="   ")
         print("|")
     
-    print(" ____ ____ ____ ____ ____ ____ ____ ____ ")
+    print("____ ____ ____ ____ ____ ____ ____")
+
+def Possible_Move(piece):
+    return (piece.name=="P")
+        
+        
+        
+        
         
 def test():
     c = game()
