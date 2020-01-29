@@ -11,18 +11,10 @@ import time
 class stat:
     
     reward = 0
-    proba = []
-    quality = []
-    
-    def __init__(self, reward, proba, quality):
         
-        if(len(proba) != len(quality)):
-            return False
-        
-        self.proba = proba
-        self.quality = quality
-        self.reward = reward
-
+    def __init__(self, board):
+       self.board = board
+       self.reward = random.randint(0,10)
 
 def new_graph() :
     Graph = []
@@ -38,6 +30,23 @@ def new_graph() :
     
     return Graph
 
+def is_exist():
+    return 0
+
+def build_graph(player,game,current):
+    
+    for piece in player.piece:
+        move = piece.moves()
+        
+        for state in move:
+            new = is_exist(state,game)
+            if(not new):
+                new_s = stat(state)
+                game.state.append(new_s)
+                new = len(game.state())-1
+            
+            game.link[current].append((new,0))
+            
 
 
 def max_Q(s,nb):

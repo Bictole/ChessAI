@@ -5,12 +5,15 @@ Created on Wed Jan 22 21:44:37 2020
 @author: morin
 """
 
+import QLearningpy
+
 class piece:
     
-    def __init__(self,name,value,is_white):
+    def __init__(self,name,value,is_white,position):
         self.name = name
         self.value = value
         self.is_white = is_white
+        self.position = position
     
 class player:
     
@@ -38,7 +41,8 @@ class player:
         
 class game:
     
-    board = [0]*64
+    board = [None]*64
+    
     
     def __init__(self):
         for i in range(0,8):
@@ -50,6 +54,13 @@ class game:
         self.P2 = player(False)
         self.turn = 0
         
+        self.states = []
+        initial = QLearningpy.stat(0,0)
+        self.states.append(initial)
+        
+        self.link = []
+        
+               
 
 
 def display_board(board):
