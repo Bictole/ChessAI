@@ -52,7 +52,7 @@ class piece:
             L.append(pos)             
         return L
 
-    def R_moves(self,game):
+    def B_moves(self,game):
         L=[]
         pos_x = pos_y = self.position
         i = 0
@@ -121,7 +121,7 @@ class piece:
                 L.append(pos_y)
         return L
             
-    def C_moves(self,game): #a opti/rendre plus joli
+    def C_moves(self,game): 
         L=[]
         pos = self.position+6
         if(pos<64 and (not game[pos] or game[pos].is_white!=self.is_white) and self.position%8<6):
@@ -167,7 +167,7 @@ class player:
         self.pieces.append(p)
         p = piece('B',3,is_white,2+56*is_white)
         self.pieces.append(p)
-        p = piece('B',3,is_white,5+56*is_white)
+        p = piece('B',3,is_white,5+30*is_white)
         self.pieces.append(p)
         p = piece('Q',9,is_white,3+56*is_white)
         self.pieces.append(p)
@@ -207,6 +207,6 @@ def display_board(board):
 def test():
     c = game()
     display_board(c.board)
-    print(c.P1.pieces[15].position)
-    print("possible moves",c.P1.pieces[15].possible_moves(c.board))
+    print(c.P1.pieces[13].position)
+    print("possible moves",c.P1.pieces[13].possible_moves(c.board))
     
