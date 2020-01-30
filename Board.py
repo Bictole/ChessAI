@@ -86,6 +86,8 @@ class piece:
                 L.append(pos_y)
         return L
 
+    def Q_moves(self,game):
+        return R_moves + B_moves()
 
     def R_moves(self,game):
         L=[]
