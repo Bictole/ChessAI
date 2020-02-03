@@ -22,25 +22,32 @@ class piece:
 #___________________________________________________________________________       
 
     def ischeck(self,game,L):
+        newlist=[]
+        post_test=self.position
         print(L)
+        mybool = True
         if(self.is_white):
             P=game.P2
         else:
             P=game.P1
-        for piece in P.pieces:
-            if(piece.name == 'P'):
-                pos = piece.position+7-16*piece.is_white
-                if (L.count(pos)):
-                    L.remove(pos)
-                pos = piece.position+9-16*piece.is_white
-                if(L.count(pos)):
-                    L.remove(pos)
-            elif piece.name!='K':
-                print(piece.name)
-                for l in L:
-                    if(piece.possible_moves(game).count(l)):
-                        L.remove(l)
-        return L
+        for p in L:
+            cloned_piece = game.board[p]
+            self.position = p
+            game.board[post_test]=None
+            game.board[p]=self
+            for piece in P.pieces:
+                if(piece.name == 'P'):
+                    mybool = mybool and not(piece.position+7-16*piece.is_white==p or piece.position+9-16*piece.is_white==p)
+                elif piece.name!='K':
+                    mybool=mybool and not(p in piece.possible_moves(game))
+            if(mybool):
+                newlist.append(p)
+            if(cloned_piece):
+                cloned_piece.position = self.position
+            self.position = post_test
+            game.board[post_test]=self
+            game.board[p]=cloned_piece
+        return newlist
 #___________________________________________________________________________ 
     def K_moves(self,game):
         board = game.board
@@ -61,7 +68,7 @@ class piece:
         pos = self.position+8-16*self.is_white
         if(not game[pos] and pos<64 and pos>=0):
             L.append(pos)
-            if(self.position<8 or self.position>47): #if the pawns are on the 2nd lign
+            if(self.position<16 or self.position>47): #if the pawns are on the 2nd lign
                 pos += 8-16*self.is_white
                 if(not game[pos] and pos<64 and pos>=0):
                     L.append(pos)
