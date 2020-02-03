@@ -159,13 +159,6 @@ class piece:
             L.append(pos)
         return L
 
-def move(game,piece,coord):
-    i = n+8*(L-65)
-    if(i>64):
-        raise ("wrong coordonates")
-    if(piece.possible_moves(game).countain(i)):
-        piece.position=i
-
 def ischeck(self,game,L): 
     if(self.is_white):
         P=game.P1
@@ -252,5 +245,5 @@ def test():
     c = game()
     display_board(c.board)
     print(c.P1.pieces[13].position)
-    print("possible moves",c.P1.pieces[13].possible_moves(c.board))
+    print("possible moves",c.P1.pieces[13].possible_moves(c))
     
