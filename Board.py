@@ -21,6 +21,7 @@ class piece:
         return(method(game))
 
     def K_moves(self,game):
+        game = game.board
         L=[]
         for i in range(-1,2):
             for j in range(-1,2):
@@ -36,6 +37,7 @@ class piece:
         
 
     def P_moves(self,game):
+        game = game.board
         L=[]
         pos = self.position+8-16*self.is_white
         if(not game[pos] and pos<64 and pos>=0):
@@ -53,6 +55,7 @@ class piece:
         return L
 
     def B_moves(self,game):
+        game = game.board
         L=[]
         pos_x = pos_y = self.position
         i = 0
@@ -90,6 +93,7 @@ class piece:
         return R_moves + B_moves()
 
     def R_moves(self,game):
+        game = game.board
         L=[]
         pos_x = pos_y = self.position
         i = 0
@@ -122,8 +126,12 @@ class piece:
                     direction[3]= not game[pos_y].is_white!=self.is_white
                 L.append(pos_y)
         return L
+
+    
+        
             
-    def C_moves(self,game): 
+    def C_moves(self,game):
+        game = game.board
         L=[]
         pos = self.position+6
         if(pos<64 and (not game[pos] or game[pos].is_white!=self.is_white) and self.position%8<6):
@@ -150,6 +158,40 @@ class piece:
         if(pos>=0 and (not game[pos] or game[pos].is_white!=self.is_white) and  self.position%8!=7):
             L.append(pos)
         return L
+
+def move(game,piece,coord):
+    i = n+8*(L-65)
+    if(i>64):
+        raise ("wrong coordonates")
+    if(piece.possible_moves(game).countain(i)):
+        piece.position=i
+
+def ischeck(self,game,L): 
+    if(self.is_white):
+        P=game.P1
+    else:
+        P=game.P2
+    for piece in P.pieces:
+        if(piece.name == 'P'):
+            pos = self.position+7-16*self.is_white
+            if (L.contain(pos)):
+                L.remove(pos)
+            pos = self.position+9-16*self.is_white
+            if(L.contain(pos)):
+                L.remove(pos)
+        else:
+            for l in L:
+                if(piece.possible_moves(game.board).contain(l)):
+                    L.remove(l)
+    return L
+                
+    
+                
+            
+                
+                
+
+        
     
 class player:
    
@@ -169,7 +211,7 @@ class player:
         self.pieces.append(p)
         p = piece('B',3,is_white,2+56*is_white)
         self.pieces.append(p)
-        p = piece('B',3,is_white,5+30*is_white)
+        p = piece('B',3,is_white,5+56*is_white)
         self.pieces.append(p)
         p = piece('Q',9,is_white,3+56*is_white)
         self.pieces.append(p)
