@@ -12,30 +12,49 @@ class piece:
         self.value = value
         self.is_white = is_white
         self.position = position
-
-
+#___________________________________________________________________________    
+    
     def possible_moves(self,game):
         method_name = self.name + "_moves"
         method = getattr(self, method_name)
-        print(method_name)
         return(method(game))
 
+#___________________________________________________________________________       
+
+    def ischeck(self,game,L):
+        print(L)
+        if(self.is_white):
+            P=game.P2
+        else:
+            P=game.P1
+        for piece in P.pieces:
+            if(piece.name == 'P'):
+                pos = piece.position+7-16*piece.is_white
+                if (L.count(pos)):
+                    L.remove(pos)
+                pos = piece.position+9-16*piece.is_white
+                if(L.count(pos)):
+                    L.remove(pos)
+            elif piece.name!='K':
+                print(piece.name)
+                for l in L:
+                    if(piece.possible_moves(game).count(l)):
+                        L.remove(l)
+        return L
+#___________________________________________________________________________ 
     def K_moves(self,game):
-        game = game.board
+        board = game.board
         L=[]
         for i in range(-1,2):
             for j in range(-1,2):
                 pos=  self.position+(8-16*self.is_white)*i+j
-                print(pos)
-                if( pos<64 and pos>=0 and (not game[pos] or game[pos].is_white!=self.is_white)):
+                if( pos<64 and pos>=0 and (not board[pos] or board[pos].is_white!=self.is_white)):
                     if((pos%8<self.position%8 and j==-1) or (pos%8>self.position%8 and j==1) and (pos!=self.position) or (j==0)):
                         L.append(pos)
-        return L
-                    
-                    
-        
-        
-
+        return self.ischeck(game,L)
+                                
+#___________________________________________________________________________    
+    
     def P_moves(self,game):
         game = game.board
         L=[]
@@ -54,6 +73,8 @@ class piece:
             L.append(pos)             
         return L
 
+#___________________________________________________________________________    
+    
     def B_moves(self,game):
         game = game.board
         L=[]
@@ -88,10 +109,13 @@ class piece:
                     direction[3]= not game[pos_y].is_white!=self.is_white
                 L.append(pos_y)
         return L
-
+#___________________________________________________________________________    
+    
     def Q_moves(self,game):
-        return R_moves + B_moves()
+        return self.R_moves(game) + self.B_moves(game)
 
+#___________________________________________________________________________    
+    
     def R_moves(self,game):
         game = game.board
         L=[]
@@ -127,8 +151,7 @@ class piece:
                 L.append(pos_y)
         return L
 
-    
-        
+#___________________________________________________________________________    
             
     def C_moves(self,game):
         game = game.board
@@ -158,33 +181,8 @@ class piece:
         if(pos>=0 and (not game[pos] or game[pos].is_white!=self.is_white) and  self.position%8!=7):
             L.append(pos)
         return L
-
-def ischeck(self,game,L): 
-    if(self.is_white):
-        P=game.P1
-    else:
-        P=game.P2
-    for piece in P.pieces:
-        if(piece.name == 'P'):
-            pos = self.position+7-16*self.is_white
-            if (L.contain(pos)):
-                L.remove(pos)
-            pos = self.position+9-16*self.is_white
-            if(L.contain(pos)):
-                L.remove(pos)
-        else:
-            for l in L:
-                if(piece.possible_moves(game.board).contain(l)):
-                    L.remove(l)
-    return L
-                
-    
-                
-            
-                
-                
-
-        
+#___________________________________________________________________________    
+   
     
 class player:
    
@@ -208,13 +206,12 @@ class player:
         self.pieces.append(p)
         p = piece('Q',9,is_white,3+56*is_white)
         self.pieces.append(p)
-        p = piece('K',15,is_white,4+56*is_white)
+        p = piece('K',15,is_white,4+17*is_white)
         self.pieces.append(p)
         
-        
-        
-class game:
+#___________________________________________________________________________    
     
+class game:
     
     def __init__(self):
         self.board = [None]*64
@@ -225,8 +222,8 @@ class game:
         for p in self.P2.pieces:
             self.board[p.position]=p
         self.turn = 0
-        
 
+#___________________________________________________________________________ 
 
 def display_board(board):
     print("____ ____ ____ ____ ____ ____ ____")
@@ -239,11 +236,12 @@ def display_board(board):
         print("|")
     
     print("____ ____ ____ ____ ____ ____ ____")
-      
+
+#___________________________________________________________________________       
         
 def test():
     c = game()
     display_board(c.board)
-    print(c.P1.pieces[13].position)
-    print("possible moves",c.P1.pieces[13].possible_moves(c))
+    print(c.P1.pieces[15].position)
+    print("possible moves",c.P1.pieces[15].possible_moves(c))
     
