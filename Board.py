@@ -75,3 +75,5 @@ def display_board(board):
 def test():
     c = game()
     display_board(c.board)
+
+test()
