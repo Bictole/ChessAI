@@ -15,7 +15,7 @@ class piece:
 #___________________________________________________________________________    
     
     def possible_moves(self,game):
-        method_name = self.name + "_moves"
+        method_name = self.name[0] + "_moves"
         method = getattr(self, method_name)
         return(method(game))
 
@@ -190,23 +190,23 @@ class player:
         self.is_white = is_white
         self.pieces = []
         for i in range(8):
-            p = piece('P',1,is_white,i+8+40*is_white)
+            p = piece('P'+str(i),1,is_white,i+8+40*is_white)
             self.pieces.append(p)
-        p = piece('R',5,is_white,56*is_white)
+        p = piece('R1',5,is_white,56*is_white)
         self.pieces.append(p)
-        p = piece('R',5,is_white,7+56*is_white)
+        p = piece('R2',5,is_white,7+56*is_white)
         self.pieces.append(p)
-        p = piece('C',3,is_white,1+56*is_white)
+        p = piece('C1',3,is_white,1+56*is_white)
         self.pieces.append(p)
-        p = piece('C',3,is_white,6+56*is_white)
+        p = piece('C2',3,is_white,6+56*is_white)
         self.pieces.append(p)
-        p = piece('B',3,is_white,2+56*is_white)
+        p = piece('B1',3,is_white,2+56*is_white)
         self.pieces.append(p)
-        p = piece('B',3,is_white,5+56*is_white)
+        p = piece('B2',3,is_white,5+56*is_white)
         self.pieces.append(p)
-        p = piece('Q',9,is_white,3+56*is_white)
+        p = piece('Q1',9,is_white,3+56*is_white)
         self.pieces.append(p)
-        p = piece('K',15,is_white,4+17*is_white)
+        p = piece('K1',15,is_white,4+56*is_white)
         self.pieces.append(p)
         
 #___________________________________________________________________________    
@@ -226,13 +226,13 @@ class game:
 #___________________________________________________________________________ 
 
 def display_board(board):
-    print("____ ____ ____ ____ ____ ____ ____")
+    print("_____ _____ _____ _____ _____ _____ _____")
     for i in range(0,8):
         for j in range(0,8):
             if(board[i*8+j]):
-                print("|",board[i*8+j].name,end=" ")
+                print("| ",board[i*8+j].name,end=" ")
             else:
-                print("|",end="   ")
+                print("|",end="     ")
         print("|")
     
     print("____ ____ ____ ____ ____ ____ ____")

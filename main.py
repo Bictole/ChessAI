@@ -37,14 +37,15 @@ def main():
 
         print("Here is your possible moves")
         for e in position :
-            f = chr(65 + e//10 + 1) + str(e%8 + 1)
+            
+            f = chr(65 + e//10 +1) + str(e%8 + 1)
             print(f)
 
         isinputmove = False
         while not isinputmove :
             strpos = input("Please enter the moove that you want !")
-            indexpos = ((ord(strpos[0])) - 65) * 8 + int(strpos[1]) - 1
-            print(indexpos)
+            indexpos = (((ord(strpos[0])) - 65) * 8) + int(strpos[1]) - 1
+
             for e in position:
                 if e == indexpos:
                     isinputmove = True
@@ -53,7 +54,8 @@ def main():
             if isinputmove == False:
                 print("This position doesn't exist, please enter a good one !")
                 for e in position:
-                    print(e)
+                    f = chr(65 + e // 10 +1) + str(e % 8 +1)
+                    print(f)
         #find out if there is any pieceto eat
         if(game.board[indexpos]):
             eaten_piece = game.board[indexpos]
@@ -71,6 +73,8 @@ def main():
             current.pieces.remove(eaten_piece)
 
         # check mat
+        if(game.P1.pieces == [] or game.P2.pieces == []):
+            mat = True
         # check pat
 
 
