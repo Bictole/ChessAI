@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 Created on Jan 2020
@@ -37,6 +38,7 @@ def main():
 
         print("Here is your possible moves")
         for e in position :
+
             
             f = chr(65 + e//10 +1) + str(e%8 + 1)
             print(f)
