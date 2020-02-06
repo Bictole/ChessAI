@@ -39,8 +39,7 @@ def main():
         print("Here is your possible moves")
         for e in position :
 
-            
-            f = chr(65 + e//10 +1) + str(e%8 + 1)
+            f=chr(65+e//8)+str(e%8+1)
             print(f)
 
         isinputmove = False
@@ -56,7 +55,7 @@ def main():
             if isinputmove == False:
                 print("This position doesn't exist, please enter a good one !")
                 for e in position:
-                    f = chr(65 + e // 10 +1) + str(e % 8 +1)
+                    f=chr(65+e//8)+str(e%8+1)
                     print(f)
         #find out if there is any pieceto eat
         if(game.board[indexpos]):
