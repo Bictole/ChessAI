@@ -164,7 +164,7 @@ class piece:
         game = game.board
         L=[]
         pos = self.position+6
-        if(pos<64 and (not game[pos] or game[pos].is_white!=self.is_white) and self.position%8<6):
+        if(pos<64 and (not game[pos] or game[pos].is_white!=self.is_white) and self.position%8>0):
             L.append(pos)
         pos = self.position+10
         if(pos<64  and (not game[pos] or game[pos].is_white!=self.is_white) and self.position%8<6):
