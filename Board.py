@@ -24,24 +24,34 @@ class piece:
     def ischeck(self,game,L):
         newlist=[]
         post_test=self.position
-        print(L)
         mybool = True
+        L+= self.castling(game)
+        s = ""
         if(self.is_white):
             P=game.P2
         else:
             P=game.P1
         for p in L:
+            if(p=="Castling right"):
+                s = p
+                p = 56*self.is_white
+            if (p=="Castling left"):
+                s = p
+                p = 7+56*self.is_white
             cloned_piece = game.board[p]
             self.position = p
             game.board[post_test]=None
             game.board[p]=self
             for piece in P.pieces:
-                if(piece.name == 'P'):
+                if('P' in piece.name):
                     mybool = mybool and not(piece.position+7-16*piece.is_white==p or piece.position+9-16*piece.is_white==p)
-                elif piece.name!='K':
+                elif not 'K' in piece.name:
                     mybool=mybool and not(p in piece.possible_moves(game))
             if(mybool):
-                newlist.append(p)
+                if(s!=""):
+                    newlist.append(s)
+                else:
+                    newlist.append(p)
             if(cloned_piece):
                 cloned_piece.position = self.position
             self.position = post_test
@@ -60,6 +70,32 @@ class piece:
                         L.append(pos)
         return self.ischeck(game,L)
                                 
+#___________________________________________________________________________    
+
+    def castling(self,game):
+        board = game.board
+        L=[]
+        i = 1
+        mybool = True
+        if(self.position==4+56*self.is_white):
+            while(mybool and i<2):
+                mybool = not board[self.position+i]
+                i+=1
+                print(i)
+            if(mybool and board[self.position+i+1] and 'R' in board[self.position+i+1].name):
+                L.append("Castling right")
+            mybool = True
+            i=1
+            while(mybool and i<3):
+                mybool = not board[self.position-i]
+                i+=1
+            if(mybool and  board[self.position-i-1] and 'R'  in board[self.position-i-1].name):
+                L.append("Castling left")
+            print(L)
+        return L
+
+ 
+
 #___________________________________________________________________________    
     
     def P_moves(self,game):
@@ -199,10 +235,6 @@ class player:
         for i in range(8):
             p = piece('P'+str(i),1,is_white,i+8+40*is_white)
             self.pieces.append(p)
-        p = piece('R1',5,is_white,56*is_white)
-        self.pieces.append(p)
-        p = piece('R2',5,is_white,7+56*is_white)
-        self.pieces.append(p)
         p = piece('C1',3,is_white,1+56*is_white)
         self.pieces.append(p)
         p = piece('C2',3,is_white,6+56*is_white)
@@ -212,6 +244,10 @@ class player:
         p = piece('B2',3,is_white,5+56*is_white)
         self.pieces.append(p)
         p = piece('Q1',9,is_white,3+56*is_white)
+        self.pieces.append(p)
+        p = piece('R1',5,is_white,56*is_white)
+        self.pieces.append(p)
+        p = piece('R2',5,is_white,7+56*is_white)
         self.pieces.append(p)
         p = piece('K1',15,is_white,4+56*is_white)
         self.pieces.append(p)
@@ -250,6 +286,5 @@ def display_board(board):
 def test():
     c = game()
     display_board(c.board)
-    print(c.P1.pieces[15].position)
-    print("possible moves",c.P1.pieces[15].possible_moves(c))
+    print("possible moves",c.P1.pieces[10].possible_moves(c))
     
