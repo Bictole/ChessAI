@@ -1,14 +1,17 @@
 
 
-def save(G, linked):
+def save(G):
     fichier = open("save_data.txt", "w")
     for i in G:
         fichier.write(str(i) + "\n")
         
     fichier.write("\n")
     
-    for i in linked:
-        fichier.write(str(i) + "\n")
+    for i in range(len(G)):
+        for j in range(len(G[i].linked)):
+            fichier.write(str(G[i].linked[j]))
+        if(len(G[i].linked) > 0):
+            fichier.write("\n")
         
     fichier.write("\n")
     
@@ -17,7 +20,7 @@ def save(G, linked):
         
     fichier.write("\n")
     
-    fichier.close()
+    fichier.close()   
 
 
 def recup():
