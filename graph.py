@@ -6,18 +6,19 @@ Created on Tue Feb 11 17:53:40 2020
 """
 import random 
 import Board as b
+import time
+import QLearningpy as ql
 
 class stat:
-    
-    reward = 0
-        
+            
     """   def __init__(self, board):
        self.board = board
        self.reward = random.randint(0,10)"""
        
     def __init__(self, reward,board):
 
-        self.linked = []
+        self.linked_white = []
+        self.linked_black = []
         self.board = board
         self.reward = reward
         
@@ -50,18 +51,20 @@ def build_graph(player,game,current,G):
         move = piece.possible_moves(game)
 
         for index in move:
-            if(index != '[]'):
-                copy = [i for i in game.board]
-                piece = copy[piece.position]
-                copy[piece.position] = None
-                copy[index] = piece
-                new = is_exist(G,copy)
+            copy = [i for i in game.board]
+            piece = copy[piece.position]
+            copy[piece.position] = None
+            copy[index] = piece
+            new = is_exist(G,copy)
+            
+            if(not new):
+                new_s = stat(random.randint(-5,5),copy)
+                G.append(new_s)
                 
-                if(not new):
-                    new_s = stat(random.randint(-5,5),copy)
-                    G.append(new_s)
-                    
-                G[current].linked.append((len(G)-1,0))
+            if player == game.P1:    
+                G[current].linked_white.append((len(G)-1,0))
+            else:
+                G[current].linked_black.append((len(G)-1,0))
     
             
             
@@ -72,9 +75,43 @@ def main():
     game = b.game()
     s = stat(0,game.board)
     graph.append(s)
-    build_graph(game.P1,game,current,graph)
-    game.board = graph[1].board
+    ql.Training(1,graph,game)
         
-    build_graph(game.P1,game,1,graph)
+    
     
     return graph
+
+
+def train():
+    graph = []
+    end = False
+    current = 0
+    game = b.game()
+    s = stat(0,game.board)
+    graph.append(s)
+    
+    while(game.P1.pieces != [] or game.P2.pieces != []):
+        build_graph(game.P1,game,current,graph)
+        max = current
+        for i in range (1,len(graph[current].linked_white)) :
+            if graph[current].linked_white[i][1]> graph[current].linked_white[max][1]:
+                max = i
+        game.board = graph[max].board
+        current = max
+        b.display_board(game.board)
+        time.sleep(3)
+        
+        build_graph(game.P2,game,current,graph)
+        max = 0
+        for i in range (1,len(graph[current].linked_black)) :
+            if graph[current].linked_black[i][1]> graph[current].linked_black[max][1]:
+                max = i
+        game.board = graph[max].board
+        current = max
+        b.display_board(game.board)
+        time.sleep(3)
+        
+    
+    return graph
+
+main()

@@ -252,4 +252,6 @@ def test():
     display_board(c.board)
     print(c.P1.pieces[15].position)
     print("possible moves",c.P1.pieces[15].possible_moves(c))
+    c.board.reverse()
+    display_board(c.board)
     
