@@ -6,46 +6,8 @@ Created on Wed Jan 22 19:43:01 2020
 EASY EXAMPLE
 """
 import random
-import time
+import graph as g
 
-class stat:
-    
-    reward = 0
-        
-    def __init__(self, board):
-       self.board = board
-       self.reward = random.randint(0,10)
-
-def new_graph() :
-    Graph = []
-    for i in range(0,4):
-        L = [0.25,0.25,0.25,0.25]
-        K = [0]*4
-        L[i] = 0;
-        L[(i%3+1)] +=0.25
-        s = stat(random.randint(-5,5),L,K)
-        Graph.append(s)
-    
-    Graph[3].reward = 200
-    
-    return Graph
-
-def is_exist():
-    return 0
-
-def build_graph(player,game,current):
-    
-    for piece in player.piece:
-        move = piece.moves()
-        
-        for state in move:
-            new = is_exist(state,game)
-            if(not new):
-                new_s = stat(state)
-                game.state.append(new_s)
-                new = len(game.state())-1
-            
-            game.link[current].append((new,0))
             
 
 
@@ -61,7 +23,7 @@ def max_Q(s,nb):
         
 
 def Qlearning(learning_rate, episode):
-    G = new_graph()
+    G = g.new_graph()
     for i in range(0,episode):
         l = 1
         e = 1
