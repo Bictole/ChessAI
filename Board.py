@@ -92,8 +92,6 @@ class piece:
                 L.append("Castling left")
         return L
 
- 
-
 #___________________________________________________________________________    
     
     def P_moves(self,game):
@@ -263,7 +261,21 @@ class game:
         for p in self.P2.pieces:
             self.board[p.position]=p
         self.turn = 0
+#___________________________________________________________________________    
 
+    def is_pat(self):
+        return len(self.pieces[15].possible_moves)==0
+#___________________________________________________________________________    
+
+    def check_mate(self):
+        return self.is_pat() and self.is_check()
+        
+#___________________________________________________________________________    
+
+    #piece = piece that the enemy just moved 
+    def is_check(self,piece): 
+        return self.pieces[15].position in piece.possible_moves()
+ 
 #___________________________________________________________________________ 
 
 def display_board(board):

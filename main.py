@@ -34,7 +34,7 @@ def main():
                     piece = p
                     break
             if(position == []):
-                print("This piece doesn't exist or had been lost. Please enter a correct name !")
+                print("This piece doesn't exist or had been lost or it can't move. Please enter a correct name !")
 
         print("Here is your possible moves")
         for e in position :
@@ -44,7 +44,7 @@ def main():
 
         isinputmove = False
         while not isinputmove :
-            strpos = input("Please enter the moove that you want !")
+            strpos = input("Please enter the move that you want !")
             indexpos = (((ord(strpos[0])) - 65) * 8) + int(strpos[1]) - 1
 
             for e in position:
