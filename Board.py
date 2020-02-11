@@ -81,7 +81,6 @@ class piece:
             while(mybool and i<2):
                 mybool = not board[self.position+i]
                 i+=1
-                print(i)
             if(mybool and board[self.position+i+1] and 'R' in board[self.position+i+1].name):
                 L.append("Castling right")
             mybool = True
@@ -91,7 +90,6 @@ class piece:
                 i+=1
             if(mybool and  board[self.position-i-1] and 'R'  in board[self.position-i-1].name):
                 L.append("Castling left")
-            print(L)
         return L
 
  
