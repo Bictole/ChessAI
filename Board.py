@@ -249,18 +249,18 @@ class player:
 
 #___________________________________________________________________________    
 
-    def is_pat(self):
-        return len(self.pieces[15].possible_moves)==0
+    def is_pat(self,game):
+        return len(self.pieces[15].possible_moves(game))==0
 #___________________________________________________________________________    
 
-    def check_mate(self):
-        return self.is_pat() and self.is_check()
+    def check_mate(self,piece,game):
+        return self.is_pat(game) and self.is_check(piece,game)
         
 #___________________________________________________________________________    
 
     #piece = piece that the enemy just moved 
-    def is_check(self,piece): 
-        return self.pieces[15].position in piece.possible_moves()
+    def is_check(self,piece,game): 
+        return self.pieces[15].position in piece.possible_moves(game)
  
        
 #___________________________________________________________________________    
@@ -297,4 +297,5 @@ def test():
     c = game()
     display_board(c.board)
     print("possible moves",c.P1.pieces[10].possible_moves(c))
+    print(c.P1.is_check(c.P2.pieces[0],c))
     
