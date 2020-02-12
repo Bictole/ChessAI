@@ -74,83 +74,43 @@ while launched and not mat and not pat:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             launched = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1 and event.pos[0] > 60 and event.pos[0] < 740 and event.pos[1] > 60 and event.pos[1] < 740: # if left clic
-                minx = 1000
-                miny = 1000
-                indexx = -1
-                indexy = -1
-                for i in range(len(position_tab)):
-                    stepx = event.pos[0] - position_tab[i]
-                    stepy = event.pos[1] - position_tab[i]
-                    if stepx > 0 and stepx < minx:
-                        minx = stepx
-                        indexx = i
-                    if stepy > 0 and stepy < miny:
-                        miny = stepy
-                        indexy = i
 
-                posx = position_tab[indexx]
-                posy = position_tab[indexy]
+        moves = piece.possible_moves(game)
+        boolean_move = False
+        moveindex = -1
+        for i in range(len(moves)):
+            coor = [60 + (moves[i] % 8) * 85, 60 + (moves[i] // 8) * 85]
+            if coor == [posa, posb]:
+                boolean_move = True
+                moveindex = i
+                break
 
-                for p in current.pieces:
-                    if p.position == indexy*8 + indexx:
-                        piece = p
-                        break
+        if boolean_move:
+            moveposition = moves[moveindex]
 
-        if event.type == pygame.MOUSEBUTTONUP and piece:
-            minx = 1000
-            miny = 1000
-            indexx = -1
-            indexy = -1
-            for i in range(len(position_tab)):
-                stepx = event.pos[0] - position_tab[i]
-                stepy = event.pos[1] - position_tab[i]
-                if stepx > 0 and stepx < minx:
-                    minx = stepx
-                    indexx = i
-                if stepy > 0 and stepy < miny:
-                    miny = stepy
-                    indexy = i
+        # Find out if there is any piece to eat
+        if (game.board[moveposition]):
+            eaten_piece = game.board[moveposition]
 
-            posa = position_tab[indexx]
-            posb = position_tab[indexy]
+        # Move the current piece
+        game.board[piece.position] = None
+        piece.position = moveposition
+        game.board[piece.position] = piece
 
-            moves = piece.possible_moves(game)
-            boolean_move = False
-            moveindex = -1
-            for i in range(len(moves)):
-                coor = [60 + (moves[i] % 8) * 85, 60 + (moves[i] // 8) * 85]
-                if coor == [posa, posb]:
-                    boolean_move = True
-                    moveindex = i
-                    break
+        if (current == white):
+            current = black
+        else:
+            current = white
+        if (eaten_piece):
+            current.pieces.remove(eaten_piece)
+            eaten_piece = None
+        piece = None
 
-            if boolean_move:
-                moveposition = moves[moveindex]
+        # check mat
+        if (game.P1.pieces == [] or game.P2.pieces == []):
+            mat = True
+        # check pat
 
-                #Find out if there is any piece to eat
-                if (game.board[moveposition]):
-                    eaten_piece = game.board[moveposition]
-
-                # Move the current piece
-                game.board[piece.position] = None
-                piece.position = moveposition
-                game.board[piece.position] = piece
-
-                if (current == white):
-                    current = black
-                else:
-                    current = white
-                if (eaten_piece):
-                    current.pieces.remove(eaten_piece)
-                    eaten_piece = None
-                piece = None
-
-                # check mat
-                if (game.P1.pieces == [] or game.P2.pieces == []):
-                    mat = True
-                # check pat
 
     window_surface.blit(board_image, [0, 0])
 
@@ -183,12 +143,6 @@ while launched and not mat and not pat:
             window_surface.blit(wrook1_image, [60 + (e.position%8)*85, 60 + (e.position//8)*85])
 
     if piece:
-        #print(piece.name)
-        moves = piece.possible_moves(game)
-        for e in moves:
-            coor = [75 + (e % 8)*85, 75 + (e//8)*85]
-            window_surface.blit(greenpoint_image, coor)
-
         mat = current.check_mate(piece, game)
         #pat = current.is_pat(game)
 
