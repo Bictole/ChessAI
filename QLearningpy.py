@@ -109,15 +109,16 @@ def Training(episode,G,game):
             else:
                 a = max_Qu(current,game.P1,game,G)
             
+            print("len linked list = ", len(G[current].linked_white))
             print("link =",a)
             (next_index,p) = G[current].linked_white[a]
+            print("index next=",next_index)
             
             s_next = G[next_index] #action 1 leads to state 1, action 2 to state 2, ...
             
             (c,d) = G[current].linked_white[a]
             g.build_graph(game.P1,game,next_index,G)
-            print("index next=",next_index)
-            print("len linked list = ", len(G[current].linked_white))
+            
             d = l*(s_next.reward + 0.4*max_Qu(next_index,game.P1,game,G) + (1-l)*d)
             l *=0.99
             e*=0.99
@@ -141,12 +142,12 @@ def Training(episode,G,game):
             else:
                 a = max_Qu(current,game.P2,game,G)
             
+            print("len linked list = ", len(G[current].linked_black))
             print("link =",a)
             (next_index,p) = G[current].linked_black[a]
+            print("index next=",next_index)
             
             s_next = G[next_index] #action 1 leads to state 1, action 2 to state 2, ...
-            print("index next=",next_index)
-            print("len linked list = ", len(G[current].linked_black))
             (c,d) = G[current].linked_black[a]
             g.build_graph(game.P2,game,next_index,G)
             d = l*(s_next.reward + 0.4*max_Qu(next_index,game.P2,game,G) + (1-l)*d)
