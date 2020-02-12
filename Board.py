@@ -7,8 +7,9 @@ Created on Wed Jan 22 21:44:37 2020
 
 class piece:
     
-    def __init__(self,name,is_white,position):
+    def __init__(self,name,value,is_white,position):
         self.name = name
+        self.value = value
         self.is_white = is_white
         self.position = position
 #___________________________________________________________________________    
@@ -128,7 +129,7 @@ class piece:
                     direction[0]= not game[pos_x].is_white!=self.is_white
                 L.append(pos_x)
             pos_y+=i*7
-            direction[2] =direction[2] and pos_y%8<self.position%8 and pos_y<64 and (not game[pos_y] or game[pos_y].is_white!=self.is_white)
+            direction[2] =direction[2] and pos_x%8!=0 and pos_y<64 and (not game[pos_y] or game[pos_y].is_white!=self.is_white)
             if(direction[2]):
                 if(game[pos_y]):
                     direction[2]= not game[pos_y].is_white!=self.is_white
@@ -141,7 +142,7 @@ class piece:
                     direction[1]= not game[pos_x].is_white!=self.is_white
                 L.append(pos_x)
             pos_y-=i*7
-            direction[3]=direction[3] and pos_y>=0 and pos_y%8>self.position%8 (not game[pos_y] or game[pos_y].is_white!=self.is_white)
+            direction[3]=direction[3]  and pos_x%8!=7 and pos_y>=0 and (not game[pos_y] or game[pos_y].is_white!=self.is_white)
             if(direction[3]):
                 if(game[pos_y]):
                     direction[3]= not game[pos_y].is_white!=self.is_white
@@ -228,51 +229,25 @@ class player:
         self.is_white = is_white
         self.pieces = []
         for i in range(8):
-            p = piece('P'+str(i),is_white,i+8+40*is_white)
+            p = piece('P'+str(i),1,is_white,i+8+40*is_white)
             self.pieces.append(p)
-        p = piece('C1',is_white,1+56*is_white)
+        p = piece('C1',3,is_white,1+56*is_white)
         self.pieces.append(p)
-        p = piece('C2',is_white,6+56*is_white)
+        p = piece('C2',3,is_white,6+56*is_white)
         self.pieces.append(p)
-        p = piece('B1',is_white,2+56*is_white)
+        p = piece('B1',3,is_white,2+56*is_white)
         self.pieces.append(p)
-        p = piece('B2',is_white,5+56*is_white)
+        p = piece('B2',3,is_white,5+56*is_white)
         self.pieces.append(p)
-        p = piece('Q1',is_white,3+56*is_white)
+        p = piece('Q1',9,is_white,3+56*is_white)
         self.pieces.append(p)
-        p = piece('R1',is_white,56*is_white)
+        p = piece('R1',5,is_white,56*is_white)
         self.pieces.append(p)
-        p = piece('R2',is_white,7+56*is_white)
+        p = piece('R2',5,is_white,7+56*is_white)
         self.pieces.append(p)
-        p = piece('K1',is_white,4+56*is_white)
+        p = piece('K1',15,is_white,4+56*is_white)
         self.pieces.append(p)
-
-#___________________________________________________________________________    
-
-    def is_pat(self,game):
-        i = 0
-        mybool = True
-        while(mybool and i<len(self.pieces)-1):
-            mybool = not 'K' in self.pieces[i].name
-            i+=1
-        return not mybool and len(self.pieces[i].possible_moves(game))==0
-#___________________________________________________________________________    
-
-    def check_mate(self,piece,game):
-        return self.is_pat(game) and self.is_check(piece,game)
         
-#___________________________________________________________________________    
-
-    #piece = piece that the enemy just moved 
-    def is_check(self,piece,game): 
-        i = 0
-        mybool = True
-        while(mybool and i<len(self.pieces)-1):
-            mybool = not 'K' in  self.pieces[i].name
-            i+=1
-        return self.pieces[i].position in piece.possible_moves(game)
- 
-       
 #___________________________________________________________________________    
     
 class game:
@@ -286,6 +261,21 @@ class game:
         for p in self.P2.pieces:
             self.board[p.position]=p
         self.turn = 0
+#___________________________________________________________________________    
+
+    def is_pat(self):
+        return len(self.pieces[15].possible_moves)==0
+#___________________________________________________________________________    
+
+    def check_mate(self):
+        return self.is_pat() and self.is_check()
+        
+#___________________________________________________________________________    
+
+    #piece = piece that the enemy just moved 
+    def is_check(self,piece): 
+        return self.pieces[15].position in piece.possible_moves()
+ 
 #___________________________________________________________________________ 
 
 def display_board(board):
@@ -307,5 +297,4 @@ def test():
     c = game()
     display_board(c.board)
     print("possible moves",c.P1.pieces[10].possible_moves(c))
-    print(c.P1.is_check(c.P2.pieces[0],c))
     
