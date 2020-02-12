@@ -189,7 +189,7 @@ while launched and not mat and not pat:
             coor = [75 + (e % 8)*85, 75 + (e//8)*85]
             window_surface.blit(greenpoint_image, coor)
 
-        mat = current.check_mate(piece, game)
+        #mat = current.check_mate(piece, game)
         #pat = current.is_pat(game)
 
     pygame.display.flip()

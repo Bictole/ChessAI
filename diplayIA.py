@@ -4,6 +4,7 @@ from pygame.locals import *
 import os
 import time
 import Board
+import random
 
 pygame.init()
 window_surface = pygame.display.set_mode((800, 800), pygame.RESIZABLE)
@@ -75,18 +76,17 @@ while launched and not mat and not pat:
         if event.type == pygame.QUIT:
             launched = False
 
-        moves = piece.possible_moves(game)
-        boolean_move = False
-        moveindex = -1
-        for i in range(len(moves)):
-            coor = [60 + (moves[i] % 8) * 85, 60 + (moves[i] // 8) * 85]
-            if coor == [posa, posb]:
-                boolean_move = True
-                moveindex = i
-                break
+        getpiece = False
+        length = len(current.pieces)
 
-        if boolean_move:
-            moveposition = moves[moveindex]
+        while not getpiece:
+            piece = current.pieces[random.randrange(length)]
+            moves = piece.possible_moves(game)
+            if moves:
+                getpiece = True
+
+        length2 = len(moves)
+        moveposition = moves[random.randrange(length2)]
 
         # Find out if there is any piece to eat
         if (game.board[moveposition]):
@@ -146,6 +146,7 @@ while launched and not mat and not pat:
         mat = current.check_mate(piece, game)
         #pat = current.is_pat(game)
 
+    time.sleep(0.2)
     pygame.display.flip()
     clock.tick()
 
