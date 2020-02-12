@@ -250,7 +250,12 @@ class player:
 #___________________________________________________________________________    
 
     def is_pat(self,game):
-        return len(self.pieces[15].possible_moves(game))==0
+        i = 0
+        mybool = True
+        while(mybool and i<len(self.pieces)-1):
+            mybool = not 'K' in self.pieces[i].name
+            i+=1
+        return not mybool and len(self.pieces[i].possible_moves(game))==0
 #___________________________________________________________________________    
 
     def check_mate(self,piece,game):
@@ -260,7 +265,12 @@ class player:
 
     #piece = piece that the enemy just moved 
     def is_check(self,piece,game): 
-        return self.pieces[15].position in piece.possible_moves(game)
+        i = 0
+        mybool = True
+        while(mybool and i<len(self.pieces)-1):
+            mybool = not 'K' in  self.pieces[i].name
+            i+=1
+        return self.pieces[i].position in piece.possible_moves(game)
  
        
 #___________________________________________________________________________    
