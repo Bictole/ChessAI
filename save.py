@@ -2,6 +2,7 @@ import Board as b
 import QLearningpy as ql
 import graph as g
 
+#S A V E  G R A P H
 
 def save_graph(G):
     file = open("data_graph.txt", "w")
@@ -21,7 +22,8 @@ def save_graph(G):
     
     file.close
     
-    
+#______________________________________________________________________________
+#L O A D  G R A P H
 def load_graph():
     G = []
     file = open("data_graph.txt", "r")
@@ -32,7 +34,7 @@ def load_graph():
         j = 1
         new = g.stat(reward,[])
         while l[j] != "{":
-           new.linked_white.append((l[j],l[j+1]))
+           new.linked_black.append((int(l[j]),int(l[j+1])))
            j+=2
         j+=1
         k=j
@@ -51,29 +53,10 @@ def load_graph():
                 
             
        
-    
-    
-def test():
-    graph = []
-    game = b.game()
-    s = g.stat(0,game.board)
-    graph.append(s)
-    g.build_graph(game.P2,game,0,graph)
-    
-    save_graph(graph)
-    g2 = load_graph()
-    
-    for i in range (len(g2)):
-        s = graph[i]
-        s2 = g2[i]
+  
         
-        for e in s.linked_black:
-            print(str(e))
-        for j in s2.linked_black:
-            print("linked s2")
-            print(str(j))
-    return s.linked_black == s2.linked_black
 
+"""
 def save(G):
     fichier = open("save_data.txt", "w")
     for i in G:
@@ -116,4 +99,4 @@ def recup():
         if(a == 2):
             qualiState.append(i)
             
-    return(G, linked, qualiState)
+    return(G, linked, qualiState) """
