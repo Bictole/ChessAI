@@ -7,7 +7,7 @@ Created on Wed Jan 22 21:44:37 2020
 
 class piece:
     
-    def __init__(self,name,value,is_white,position):
+    def __init__(self,name,is_white,position):
         self.name = name
         self.is_white = is_white
         self.position = position
