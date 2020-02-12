@@ -128,7 +128,7 @@ class piece:
                     direction[0]= not game[pos_x].is_white!=self.is_white
                 L.append(pos_x)
             pos_y+=i*7
-            direction[2] =direction[2] and pos_y<64 and (not game[pos_y] or game[pos_y].is_white!=self.is_white)
+            direction[2] =direction[2] and pos_y%8<self.position%8 and pos_y<64 and (not game[pos_y] or game[pos_y].is_white!=self.is_white)
             if(direction[2]):
                 if(game[pos_y]):
                     direction[2]= not game[pos_y].is_white!=self.is_white
@@ -141,7 +141,7 @@ class piece:
                     direction[1]= not game[pos_x].is_white!=self.is_white
                 L.append(pos_x)
             pos_y-=i*7
-            direction[3]=direction[3] and pos_y>=0 and (not game[pos_y] or game[pos_y].is_white!=self.is_white)
+            direction[3]=direction[3] and pos_y>=0 and pos_y%8>self.position%8 (not game[pos_y] or game[pos_y].is_white!=self.is_white)
             if(direction[3]):
                 if(game[pos_y]):
                     direction[3]= not game[pos_y].is_white!=self.is_white
