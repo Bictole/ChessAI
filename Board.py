@@ -247,6 +247,31 @@ class player:
         self.pieces.append(p)
         p = piece('K1',15,is_white,4+56*is_white)
         self.pieces.append(p)
+#___________________________________________________________________________    
+
+    def is_pat(self,game):
+        i = 0
+        mybool = True
+        while(mybool and i<len(self.pieces)-1):
+            mybool = not 'K' in self.pieces[i].name
+            i+=1
+        return not mybool and len(self.pieces[i].possible_moves(game))==0
+#___________________________________________________________________________    
+
+    def check_mate(self,game,piece):
+        return self.is_pat(game) and self.is_check(game,piece)
+        
+#___________________________________________________________________________    
+
+    #piece = piece that the enemy just moved 
+    def is_check(self,game,piece): 
+        i = 0
+        mybool = True
+        while(mybool and i<len(self.pieces)-1):
+            mybool = not 'K' in  self.pieces[i].name
+            i+=1
+        return self.pieces[i].position in piece.possible_moves(game)
+ 
         
 #___________________________________________________________________________    
     
@@ -261,21 +286,6 @@ class game:
         for p in self.P2.pieces:
             self.board[p.position]=p
         self.turn = 0
-#___________________________________________________________________________    
-
-    def is_pat(self):
-        return len(self.pieces[15].possible_moves)==0
-#___________________________________________________________________________    
-
-    def check_mate(self):
-        return self.is_pat() and self.is_check()
-        
-#___________________________________________________________________________    
-
-    #piece = piece that the enemy just moved 
-    def is_check(self,piece): 
-        return self.pieces[15].position in piece.possible_moves()
- 
 #___________________________________________________________________________ 
 
 def display_board(board):
