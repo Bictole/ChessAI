@@ -114,4 +114,15 @@ def train():
     
     return graph
 
-main()
+
+def text():
+    graph = []
+    game = b.game()
+    s = stat(0,game.board)
+    graph.append(s)
+    for i in range(0,5):
+        build_graph(game.P1,game,i,graph)
+    
+    ql.max_Qu(0,game.P1,game,graph)
+    
+#main()
