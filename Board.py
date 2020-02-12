@@ -42,6 +42,7 @@ class piece:
             self.position = p
             game.board[post_test]=None
             game.board[p]=self
+            mybool = True
             for piece in P.pieces:
                 if('P' in piece.name):
                     mybool = mybool and not(piece.position+7-16*piece.is_white==p or piece.position+9-16*piece.is_white==p)
