@@ -9,7 +9,6 @@ class piece:
     
     def __init__(self,name,value,is_white,position):
         self.name = name
-        self.value = value
         self.is_white = is_white
         self.position = position
 #___________________________________________________________________________    
@@ -229,38 +228,25 @@ class player:
         self.is_white = is_white
         self.pieces = []
         for i in range(8):
-            p = piece('P'+str(i),1,is_white,i+8+40*is_white)
+            p = piece('P'+str(i),is_white,i+8+40*is_white)
             self.pieces.append(p)
-        p = piece('C1',3,is_white,1+56*is_white)
+        p = piece('C1',is_white,1+56*is_white)
         self.pieces.append(p)
-        p = piece('C2',3,is_white,6+56*is_white)
+        p = piece('C2',is_white,6+56*is_white)
         self.pieces.append(p)
-        p = piece('B1',3,is_white,2+56*is_white)
+        p = piece('B1',is_white,2+56*is_white)
         self.pieces.append(p)
-        p = piece('B2',3,is_white,5+56*is_white)
+        p = piece('B2',is_white,5+56*is_white)
         self.pieces.append(p)
-        p = piece('Q1',9,is_white,3+56*is_white)
+        p = piece('Q1',is_white,3+56*is_white)
         self.pieces.append(p)
-        p = piece('R1',5,is_white,56*is_white)
+        p = piece('R1',is_white,56*is_white)
         self.pieces.append(p)
-        p = piece('R2',5,is_white,7+56*is_white)
+        p = piece('R2',is_white,7+56*is_white)
         self.pieces.append(p)
-        p = piece('K1',15,is_white,4+56*is_white)
+        p = piece('K1',is_white,4+56*is_white)
         self.pieces.append(p)
-        
-#___________________________________________________________________________    
-    
-class game:
-    
-    def __init__(self):
-        self.board = [None]*64
-        self.P1 = player(True)
-        self.P2 = player(False)
-        for p in self.P1.pieces:
-            self.board[p.position]=p
-        for p in self.P2.pieces:
-            self.board[p.position]=p
-        self.turn = 0
+
 #___________________________________________________________________________    
 
     def is_pat(self):
@@ -276,6 +262,20 @@ class game:
     def is_check(self,piece): 
         return self.pieces[15].position in piece.possible_moves()
  
+       
+#___________________________________________________________________________    
+    
+class game:
+    
+    def __init__(self):
+        self.board = [None]*64
+        self.P1 = player(True)
+        self.P2 = player(False)
+        for p in self.P1.pieces:
+            self.board[p.position]=p
+        for p in self.P2.pieces:
+            self.board[p.position]=p
+        self.turn = 0
 #___________________________________________________________________________ 
 
 def display_board(board):
