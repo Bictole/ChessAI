@@ -1,1 +1,0 @@
-Player black P2 : les pions ne peuvent pas avancer de 2 au premier mouvement
