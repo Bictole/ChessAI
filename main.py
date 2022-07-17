@@ -1,9 +1,9 @@
-import Board
+import board
 
 def main():
 
     #Init the variables
-    game = Board.game()
+    game = board.game()
     black = game.P2
     white = game.P1
     current = white
@@ -12,7 +12,7 @@ def main():
     mat=False
     pat = False
     while(not mat and not pat):
-        Board.display_board(game.board)
+        board.display_board(game.board)
         position = []
         piece = None
         eaten_piece = None

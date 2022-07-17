@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 import os
 import time
-import Board
+import board
 import random
 
 pygame.init()
@@ -58,7 +58,7 @@ position_tab = [60, 145, 230, 315, 400, 485, 570, 655]
 clock = pygame.time.Clock()
 
 #Init the variables
-game = Board.game()
+game = board.game()
 black = game.P2
 white = game.P1
 current = white
