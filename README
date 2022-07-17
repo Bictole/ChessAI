@@ -6,7 +6,9 @@
 This is the repository for a python chess engine with an **Q-Learning** IA. The goal was to have fun with artificial intelligence and to step up our knowledge on **reinforcement learning** !
 
 
-## Home Page
+## Chess Engine
+
+The Chess Engine is available in the file `board.py`.
 
 <img src="https://github.com/Bictole/Portfolio/blob/master/readme_images/home.png" alt="Home">
 
