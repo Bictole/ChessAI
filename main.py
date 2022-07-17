@@ -1,11 +1,3 @@
-
-# -*- coding: utf-8 -*-
-"""
-Created on Jan 2020
-
-@author: simon
-"""
-
 import Board
 
 def main():

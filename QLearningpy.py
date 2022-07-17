@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 22 19:43:01 2020
-
-@author: morin
-EASY EXAMPLE
-"""
 import random
 import time
 

@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 22 21:44:37 2020
-
-@author: morin
-"""
-
 class piece:
     
     def __init__(self,name,value,is_white,position):
