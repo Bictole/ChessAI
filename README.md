@@ -8,7 +8,19 @@ This is the repository for a python chess engine with an **Q-Learning** IA. The 
 
 ## Chess Engine
 
-The Chess Engine is available in the file `board.py`.
+The Chess Engine is available in the file `board.py`. It is a really simple engine that let us play chess game.
+
+There is two different way to launch a game.
+
+### CLI Game
+
+To launch the CLI chess game, you need to run :
+
+```python
+python main.py
+```
+
+A CLI interface will let you moove your pieces with some input.
 
 <img src="https://github.com/Bictole/Portfolio/blob/master/readme_images/home.png" alt="Home">
 
