@@ -20,7 +20,7 @@ To launch the CLI chess game, you need to run :
 python main.py
 ```
 
-A CLI interface will let you moove your pieces with some input.
+A **CLI** interface will let you moove your pieces with some input.
 
 <img src="https://github.com/Bictole/ChessAI/blob/master/readme_images/cli.png" alt="CLI">
 
@@ -32,39 +32,21 @@ To launch the pygame chess game, you need to run :
 python display.py
 ```
 
-Pygame with a real chess interface will let you moove your pieces with your mouse.
+**Pygame** with a real chess interface will let you moove your pieces with your mouse.
 
-<img src="https://github.com/Bictole/ChessAI/blob/master/readme_images/cli.png" alt="CLI">
-
-The home page is main point of the routing, we can find a picture of me and all the links to the other pages.
-
-We have the following pages :
-
-* **Blog page** which is under development for now, it may contains my curriculum. 
-* **Skills page** that contains a short description of my main skills and what i like in computer science.
-* **About page**, a short text that sum up who i am, where i am studying now and my center of interest. 
-* **Work Page**, this part contains some of my most important project and the work i am on currently.
+<img src="https://github.com/Bictole/ChessAI/blob/master/readme_images/pygame.png" alt="Pygame">
 
 
-## Social Part
+## IA
 
-<img src="https://github.com/Bictole/Portfolio/blob/master/readme_images/social.png" align="right" alt="Social_part">
-
-The portfolio contains a fix **social part** which contains the three most important links about me.
-
-You can find my :
-* [Github account](https://github.com/Bictole)
-* [Linkedin](https://www.linkedin.com/in/victor-simonin/)
-* [Kaggle account](https://www.kaggle.com/victorsimonin)
+The IA here is a **Q-Learning** Algorithm made with python. The proof of concept is in the file `main_AI.py`.
 
 
-## Usage
+### Usage
 
-Anyone can easily fork or clone the project to take it as a reference and work with it.
-
+A small reference chess game with the demonstration of the AI is available.
 You just need to run :
 
-```bash
-npm i
-npm start
+```python
+python displaIA.py
 ```
