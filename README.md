@@ -22,7 +22,19 @@ python main.py
 
 A CLI interface will let you moove your pieces with some input.
 
-<img src="https://github.com/Bictole/Portfolio/blob/master/readme_images/home.png" alt="Home">
+<img src="https://github.com/Bictole/ChessAI/blob/master/readme_images/cli.png" alt="CLI">
+
+### Pygame Interface
+
+To launch the pygame chess game, you need to run :
+
+```python
+python display.py
+```
+
+Pygame with a real chess interface will let you moove your pieces with your mouse.
+
+<img src="https://github.com/Bictole/ChessAI/blob/master/readme_images/cli.png" alt="CLI">
 
 The home page is main point of the routing, we can find a picture of me and all the links to the other pages.
 
