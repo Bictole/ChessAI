@@ -48,5 +48,5 @@ A small reference chess game with the demonstration of the AI is available.
 You just need to run :
 
 ```python
-python displaIA.py
+python displayIA.py
 ```
